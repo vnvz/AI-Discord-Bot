@@ -1,7 +1,8 @@
-require("dotenv/config");
+require("dotenv/config"); // adicionando requerimento das variáveis de ambiente
 
 const { Configuration, OpenAIApi } = require("openai");
 const { Client, IntentsBitField } = require("discord.js");
+// importando as apis de discord.js e openai
 
 const client = new Client({
   intents: [
@@ -13,7 +14,7 @@ const client = new Client({
 
 client.on("ready", () => {
   console.log("bot está online");
-});
+}); //checagem que o bot está online
 
 const configuration = new Configuration({
   apiKey: process.env.API_KEY,
@@ -21,6 +22,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+// método abaixo define como a AI responderá mensagens, quem ela é e como pegar o contexto de mensagens anteriores 
 client.on("messageCreate", async (message) => {
   if (message.author.bot) return;
   if (message.channel.id !== process.env.CHANNEL_ID);
@@ -58,4 +60,4 @@ client.on("messageCreate", async (message) => {
   message.reply(result.data.choices[0].message);
 });
 
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN); // fazer o bot ficar online de vez
